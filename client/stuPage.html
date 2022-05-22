@@ -34,7 +34,7 @@
   <div class="classManage">
     <h4 id="trNameh4" style="color:#20A4F3"></h4>&nbsp;
     <br><br>
-    <h3>可點名課程:</h3>
+    <h3>今日點名課程:</h3>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -55,7 +55,7 @@
 
     <script>
       // 測試用
-      //$(".adminPage").load('./components/trPage/rollCall/rollcall.html')
+      //$(".adminPage").load('./components/stuPage/grade.html')
       const stuAccount = localStorage.getItem("account")
       $('#trNameh4').text(localStorage.getItem("name")+" 同學")
       
@@ -82,7 +82,9 @@
           $('#rollcalltable').html(innerhtml)
 
           response.forEach((data) => {
-            if(data.AttenStatus===0)$(`#responCall${data.Rcid}`).attr('disabled', true)
+            if(data.AttenStatus===0){
+              $(`#responCall${data.Rcid}`).attr('disabled', true)
+            }
             $(`#responCall${data.Rcid}`).on('click',async(e) => {
               const reqData = {
                 responseTime: new Date().toISOString(),
@@ -102,9 +104,19 @@
                 })
             })
           })
-          console.log(response)
-
+        })
         
+        $('#checkRCLink').on('click', async(e) => {
+          window.location.href = './stuPage.html'
+        })
+
+        $('#queryRCLink').on('click', async(e) => {
+          console.log("click")
+          $(".adminPage").load('./components/stuPage/attentance.html')
+        })
+
+        $('#queryGradeLink').on('click', async(e) => {
+          $(".adminPage").load('./components/stuPage/grade.html')
         })
       }
       
@@ -113,7 +125,7 @@
 
   </div>
 
-  <script src="./trPage.js"></script>
+  <script src="./stuPage.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -19,7 +19,7 @@
 </div>
 <br>
 <div>
-  <table class="table table-striped">
+  <table id="rollcallTable" class="table table-striped">
     <thead>
       <tr>
         <th scope="col">點名 ID</th>
@@ -34,10 +34,29 @@
     <tbody id="rollcallBody">
     </tbody>
   </table>
+
+  <table id="attentanceTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">課程名稱</th>
+        <th scope="col">點名類別</th>
+        <th scope="col">學號</th>
+        <th scope="col">學生姓名</th>
+        <th scope="col">點名時間</th>
+        <th scope="col">回應時間</th>
+        <th scope="col">點名IP</th>
+        <th scope="col">回應IP</th>
+        <th scope="col">點名狀態</th>
+      </tr>
+    </thead>
+    <tbody id="attentanceBody">
+    </tbody>
+  </table>
 </div>
 
 <script>
   function rollcall(){
+    $('#attentanceTable').attr('hidden', true)
     // 設定options
     $('#classIdForTr').text(localStorage.getItem('classId')+' '+localStorage.getItem('className'))
     $('#classIdForTr').val(localStorage.getItem('classId'))
@@ -48,6 +67,8 @@
 
     // 上課點名function
     $('#onClassCallBtn').on('click', () => {
+      $('#rollcallTable').attr('hidden', false)
+      $('#attentanceTable').attr('hidden', true)
       const rcValue = {
         Clsid: Number.parseInt($('option:selected').val()),
         Tid: Number.parseInt(localStorage.getItem('Userid')),
@@ -108,6 +129,8 @@
 
     // 下課點名
     $('#leftClassCallBtn').on('click', (e) => {
+      $('#rollcallTable').attr('hidden', false)
+      $('#attentanceTable').attr('hidden', true)
       const rcValue = {
         Clsid: Number.parseInt($('option:selected').val()),
         Tid: Number.parseInt(localStorage.getItem('Userid')),
@@ -163,6 +186,36 @@
         console.log(resData)
       }).catch((err) => {
         alert('Error: 課程ID不能為空')
+      })
+    })
+
+    // 查詢點名
+    $('#SearchForAttBtn').on('click', (e) => {
+      $('#attentanceTable').attr('hidden', false)
+      $('#rollcallTable').attr('hidden', true)
+      fetch(Global.url+`/tr/attentance?clsid=${Number.parseInt($('option:selected').val())}&date=${$('#testDate').val()}`, 
+      {
+        headers: {Authorization: 'Bearer '+localStorage.getItem('token'), 'content-type': 'application/json'},
+        method: 'GET'
+      }).then(async (res) => {
+        const response = await res.json();
+        let htmlStr = '';
+        response.forEach((data) => {
+          htmlStr+=`<tr>
+            <th scope="row">${data.ClassName}</th>
+            <td style="background-color: ${data.Rcdescription==="上課點名"?"Aquamarine":"Bisque"}">${data.Rcdescription}</td>
+            <td>${data.Stuid}</td>
+            <td>${data.Name}</td>
+            <td>${new Date(data.callTime).toGMTString()}</td>
+            <td>${data.responseTime ? new Date(data.responseTime).toGMTString():''}</td>
+            <td>${data.CallIp}</td>
+            <td>${data.CheckIpAddr}</td>
+            <td><p style="color: ${data.Description==='未點名'?"red":"black"};">${data.Description}</p></td>
+          </tr>`
+        })
+
+        $('#attentanceBody').html(htmlStr)
+        console.log(response)
       })
     })
   }
