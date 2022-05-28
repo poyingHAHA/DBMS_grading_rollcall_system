@@ -94,6 +94,7 @@ CREATE TABLE RollCall(
     Clsid int NOT NULL,
     CallIp varchar(30),
     callTime DATETIME,
+    State boolean default 1,
     PRIMARY KEY(Rcid),
     FOREIGN KEY(Tid) REFERENCES Teacher(Tid),
     FOREIGN KEY(Clsid) REFERENCES Class(Clsid)
@@ -104,9 +105,8 @@ CREATE TABLE Attentance(
 	Clsid int NOT NULL,
     Rcid int NOT NULL,
     CheckIpAddr varchar(30),
-    AttendTime DATETIME,
-    LeaveTime DATETIME,
     AttenStatus int,  
+    responseTime DATETIME,
     FOREIGN KEY(Stuid) REFERENCES Student(Stuid),
     FOREIGN KEY(Clsid) REFERENCES Class(Clsid),
     FOREIGN KEY(Rcid) REFERENCES RollCall(Rcid),
@@ -119,9 +119,9 @@ CREATE TABLE Attentance(
 CREATE TABLE TestRecord(
     Testid INT NOT NULL unique AUTO_INCREMENT,
     Clsid int NOT null,
-    TestName varchar(30),
     TestDate DATE,
     TestType int,
+    TestName varchar(30),
     FOREIGN KEY(Clsid) REFERENCES Class(Clsid),
     PRIMARY KEY (Testid)
 );
@@ -153,3 +153,15 @@ CREATE TABLE RollCallType(
     Description varchar(50),
     PRIMARY KEY(Rctid)
 );
+
+INSERT INTO attentancestatus(Statusid, Description)
+VALUES(0, "已點名"),(2, "未點名"),(4, "遲到"),(8, "早退");
+
+INSERT INTO rollcalltype(Rctid, Description)
+VALUES(1, "上課點名"),(2, "下課點名");
+
+INSERT INTO roledef(Roleid, description) 
+VALUES(0, "admin"), (1, "teacher"), (2, "student");
+
+INSERT INTO testtype(Typeid, Description) 
+VALUES(1, "小考"), (2, "大考");

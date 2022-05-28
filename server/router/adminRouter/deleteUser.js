@@ -3,8 +3,9 @@ const router = new express.Router()
 const {deleteData} = require('../../db/delete')
 const {queryDataWhere} = require('../../db/query')
 const {updateData} = require('../../db/update')
+const {auth} = require('../../db/services/auth')
 
-router.delete('/student', async(req, res) => {
+router.delete('/student', auth, async(req, res) => {
   try {
     if(req.role!==0){
       throw new Error('您沒有該權限!!')

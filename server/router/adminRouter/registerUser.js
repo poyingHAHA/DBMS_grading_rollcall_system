@@ -2,11 +2,12 @@ const express = require('express')
 const router = new express.Router()
 const {insertTr, insertStu} = require('../../db/insert')
 const {updateStu} = require('../../db/update')
+const {auth} = require('../../db/services/auth')
 
-
-router.post('/student', async (req, res) => {
+router.post('/student', auth, async (req, res) => {
   console.log(req.body)
   try {
+    console.log(req.role);
     if(req.role!==0){
       throw new Error('您沒有該權限!!!!')
     }
@@ -18,7 +19,7 @@ router.post('/student', async (req, res) => {
   }
 })
 
-router.post('/teacher', async(req, res) => {
+router.post('/teacher', auth, async(req, res) => {
   console.log(req.body)
   try {
     if(req.role!==0){

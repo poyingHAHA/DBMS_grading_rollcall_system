@@ -23,11 +23,19 @@ router.get('/callingclass/:stuid', auth, async (req, res) => {
 router.post('/responCall', auth, async(req, res) => {
   try {
     // console.log(req.body)
-    // 0表示已點名，其他的點名狀態要等佈屬後才有辦法
+    // 0表示已點名
+    // 2表示未點名，default value
     req.body.AttenStatus=0
     req.body.CheckIpAddr = req.socket.remoteAddress
 
-    console.log(req.body)
+    // rollcall 時間
+    // const callTime = await queryDataWhere('callTime', 'rollcall', `Rcid=${req.body.Rcid}`)
+    // const responseTime = req.body.responseTime
+    // if(new Date(responseTime).getTime() - callTime[0].callTime.getTime() > 10000){
+    //   req.body.AttenStatus=4
+    // }
+
+    // console.log(req.body)
     await updateData('attentance', req.body,`Stuid=${req.body.Stuid} AND Rcid=${req.body.Rcid}`)
     res.status(200).send("Got it")
   } catch (error) {
