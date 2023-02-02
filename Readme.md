@@ -1,4 +1,4 @@
-# Database System final Project
+# Database System final Project(using mySQL)
 
 [Demo Video in Chinese](https://www.youtube.com/watch?v=UJ_Pa57Ln88)
 
