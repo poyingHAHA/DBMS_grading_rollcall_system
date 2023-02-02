@@ -59,8 +59,8 @@
             <td style="background-color: ${data.Rcdescription==="上課點名"?"Aquamarine":"Bisque"}">${data.Rcdescription}</td>
             <td>${data.Stuid}</td>
             <td>${data.Name}</td>
-            <td>${new Date(data.callTime).toGMTString()}</td>
-            <td>${data.responseTime ? new Date(data.responseTime).toGMTString():''}</td>
+            <td>${new Date(data.callTime).toLocaleString('zh-TW')}</td>
+            <td>${data.responseTime ? new Date(data.responseTime).toLocaleString('zh-TW'):''}</td>
             <td>${data.CallIp}</td>
             <td>${data.CheckIpAddr}</td>
             <td><p style="color: ${data.Description==='未點名'?"red":"black"};">${data.Description}</p></td>

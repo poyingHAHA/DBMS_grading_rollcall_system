@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken')
 const {queryDataWhere} = require('../query')
 
 const auth = async(req, res, next) => {
+  console.log("auth")
   try{
-    // console.log(req.headers)
     const token = await req.header('Authorization').replace('Bearer ', '')
     const decoded = jwt.verify(token, 'thisismysecret')
     // console.log(decoded.role)

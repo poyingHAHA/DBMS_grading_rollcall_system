@@ -18,6 +18,11 @@ $("#manageCourseLink").click(() => {
   $(".maCourse").attr('hidden', false)
 })
 
+$('#adminLogoutLink').click(() => {
+  window.location = './index.html'
+  localStorage.clear()
+})
+
 // 註冊用戶處理--------------------------------------------------------------------------
 $('#registerRoleSelectBtn').click(()=>{
   let selected = $('.registerRoleSelector').find("option:selected").text(); // 看選到哪個

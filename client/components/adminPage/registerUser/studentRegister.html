@@ -33,7 +33,11 @@
     if(!checkForm("studentRegisterForm")){
       $('.message').text("Password and Account Cannot be Null.")
     }else{
-      dealForm('POST' ,Global.url+"/admin/student", "studentRegisterForm", true);
+      dealForm('POST' ,Global.url+"/admin/delstudent", "studentRegisterForm", true);
+      $(':input','#studentRegisterForm').not(':button, :submit, :reset, :hidden')
+      .val('')
+      .prop('checked', false)
+      .prop('selected', false);
     }
   })
 </script>

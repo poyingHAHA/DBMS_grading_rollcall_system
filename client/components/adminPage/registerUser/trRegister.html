@@ -29,6 +29,10 @@
       $('.message').text("Password and Account Cannot be Null.")
     }else{
       dealForm('POST', Global.url+"/admin/teacher", "trRegisterForm", true);
+      $(':input','#trRegisterForm').not(':button, :submit, :reset, :hidden')
+      .val('')
+      .prop('checked', false)
+      .prop('selected', false);
     }
   })
 </script>

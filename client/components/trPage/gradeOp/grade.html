@@ -33,7 +33,7 @@
 </div>
 
 <div id="gradetable">
-  <table class="table table-striped">
+  <table class="table table-striped" id="gradetable">
     <thead>
       <tr>
         <th scope="col">學生 ID</th>
@@ -48,8 +48,12 @@
     </tbody>
   </table>
   <button type="button" class="btn btn-outline-primary" id="submitGradeBtn">提交</button>
+  <button type="button" class="btn btn-outline-primary" id="toCsvBtn">匯出成Excel</button>
 </div>
 
+<script src=
+"//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js">
+</script>
 <script>
   function grade(){
     let date = new Date();
@@ -218,6 +222,15 @@
     else if(localStorage.getItem('from') === 'gradeQuery'){
       document.getElementById('gradeSearchBtn').click()
     }
+
+    $('#toCsvBtn').on('click',() => {
+      const testdate = $('#testDate').val() ? $('#testDate').val():''
+      const testtype = $('#testType').val()!==null ? $('#testType').val():''
+      const testname = $('#testName').val() ? $('#testName').val():''
+      $('#gradetable').table2excel({
+        filename: `${testdate}_${testtype}_${testname}.xls`
+      })
+    })
   }
   grade()
 </script>

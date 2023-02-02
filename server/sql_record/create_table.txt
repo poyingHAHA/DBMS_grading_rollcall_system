@@ -93,7 +93,7 @@ CREATE TABLE RollCall(
     Tid int NOT NULL,
     Clsid int NOT NULL,
     CallIp varchar(30),
-    callTime DATETIME,
+    callTime DATETIME DEFAULT CURRENT_TIMESTAMP,
     State boolean default 1,
     PRIMARY KEY(Rcid),
     FOREIGN KEY(Tid) REFERENCES Teacher(Tid),

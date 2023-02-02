@@ -6,6 +6,7 @@ const {updateData} = require('../../db/update')
 const {auth} = require('../../db/services/auth')
 
 router.delete('/student', auth, async(req, res) => {
+  console.log(req)
   try {
     if(req.role!==0){
       throw new Error('您沒有該權限!!')
@@ -25,7 +26,7 @@ router.delete('/student', auth, async(req, res) => {
   }
 })
 
-router.delete('/teacher', async(req, res) => {
+router.delete('/teacher', auth, async(req, res) => {
   try {
     if(req.role!==0){
       throw new Error('您沒有該權限!!')

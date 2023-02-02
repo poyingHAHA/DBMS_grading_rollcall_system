@@ -4,7 +4,7 @@ const {insertTr, insertStu} = require('../../db/insert')
 const {updateStu} = require('../../db/update')
 const {auth} = require('../../db/services/auth')
 
-router.post('/student', auth, async (req, res) => {
+router.post('/delstudent', auth, async (req, res) => {
   console.log(req.body)
   try {
     console.log(req.role);

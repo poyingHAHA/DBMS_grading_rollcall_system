@@ -24,6 +24,7 @@
           <a class="nav-link" href="#" id="registerUserLink">註冊用戶</a>
           <a class="nav-link" id="delUserLink">刪除用戶</a>
           <a class="nav-link" id="manageCourseLink">管理課程</a>
+          <a class="nav-link" id="adminLogoutLink">登出</a>
         </div>
       </div>
     </div>
@@ -73,7 +74,7 @@
         else{
           const tableName = $('.delRoleSelector').val();
           console.log(tableName)
-          dealForm('DELETE', Global.url+`/admin/${tableName}` ,"delUserForm")
+          dealForm('DELETE', Global.url+`/admin/${tableName}` ,"delUserForm", true);
         }
       })
     </script>

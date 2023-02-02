@@ -24,6 +24,7 @@
           <a class="nav-link" href="#" id="classManageLink">課程查詢與管理</a>
           <a class="nav-link" id="rollcallLink">點名</a>
           <a class="nav-link" id="gradeLink">成績</a>
+          <a class="nav-link" id="trLogoutLink">登出</a>
         </div>
       </div>
     </div>
@@ -113,6 +114,11 @@
             $(".adminPage").load('./components/trPage/rollCall/rollcall.html')
           })
         })
+      })
+
+      $('#trLogoutLink').on('click', () =>{
+        window.location = './index.html';
+        localStorage.clear();
       })
       
     </script>

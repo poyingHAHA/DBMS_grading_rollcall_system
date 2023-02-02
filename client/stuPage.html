@@ -24,6 +24,7 @@
           <a class="nav-link" href="#" id="checkRCLink">點名</a>
           <a class="nav-link" id="queryRCLink">點名查詢</a>
           <a class="nav-link" id="queryGradeLink">成績查詢</a>
+          <a class="nav-link" id="stuLogoutLink">登出</a>
         </div>
       </div>
     </div>
@@ -86,8 +87,10 @@
               $(`#responCall${data.Rcid}`).attr('disabled', true)
             }
             $(`#responCall${data.Rcid}`).on('click',async(e) => {
+              let event = new Date()
+              event.setHours(event.getHours()+8)
               const reqData = {
-                responseTime: new Date().toISOString(),
+                responseTime: event,
                 Stuid: Number.parseInt(localStorage.getItem('Userid')),
                 Clsid: data.Clsid,
                 Rcid: data.Rcid
@@ -119,6 +122,10 @@
           $(".adminPage").load('./components/stuPage/grade.html')
         })
       }
+      $('#stuLogoutLink').on('click', async(e) => {
+        window.location = './index.html';
+        localStorage.clear();
+      })
       
       getAllCall()
     </script>

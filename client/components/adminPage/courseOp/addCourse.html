@@ -34,5 +34,9 @@
   $('#addCourseBtn').click((e) => {
     e.preventDefault();
     dealForm('POST' ,Global.url+"/admin/addClass", "addCourseForm",true, null, null);
+    $(':input','#addCourseForm').not(':button, :submit, :reset, :hidden')
+      .val('')
+      .prop('checked', false)
+      .prop('selected', false);
   })
 </script>
